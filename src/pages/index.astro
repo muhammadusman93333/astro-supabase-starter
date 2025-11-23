@@ -1,71 +1,294 @@
 ---
-import { getEntry } from "astro:content";
-import Alert from "../components/Alert.astro";
-import Guide from "../components/Guide.astro";
 import Layout from "../components/Layout.astro";
-import TableRow from "../components/TableRow.astro";
-import { supabase } from "../utils/database";
 
 export const prerender = false;
-
-let frameworks;
-let frameworksError;
-
-// Fetch frameworks data from Supabase if connection is set up
-if (supabase) {
-  const { data, error } = await supabase
-    .from("frameworks")
-    .select("*")
-    .order("likes", { ascending: false });
-  frameworks = data;
-  frameworksError = error;
-}
-
-// Get guides
-const connectGuide = await getEntry("guides", "guide-connect-supabase");
-const fetchDataGuide = await getEntry("guides", "guide-fetch-data");
 ---
 
-<Layout title="Web Frameworks">
-  {
-    supabase ? (
-      frameworks ? (
-        <>
-          <h1 class="mb-8 text-4xl font-bold">
-            Vote for Your Favorite Web Framework
-          </h1>
-          <table class="w-full text-left">
-            <thead>
-              <tr class="font-mono text-base border-t border-b">
-                <th>Name</th>
-                <th>Logo</th>
-                <th>Likes</th>
-              </tr>
-            </thead>
-            <tbody>
-              {frameworks?.map((framework) => (
-                <TableRow framework={framework} />
-              ))}
-            </tbody>
-          </table>
-        </>
-      ) : (
-        <>
-          {frameworksError && (
-            <Alert
-              title={frameworksError.code}
-              text={frameworksError.message}
-              variant="error"
-            />
-          )}
-          {fetchDataGuide && <Guide guide={fetchDataGuide} />}
-        </>
-      )
-    ) : (
-      <>
-        <Alert title="Finish setting up your new site" text="Before your website is ready, you must complete the steps from the guide below to create, populate, and connect your Supabase database."/>
-        {connectGuide && <Guide guide={connectGuide} />}
-      </>
-    )
-  }
+<Layout title="Uvision - Technology Solutions">
+  <!-- Hero Section with Banner -->
+  <section class="py-20 text-center relative">
+    <!-- Banner Image -->
+    <div class="absolute inset-0 overflow-hidden rounded-lg">
+      <div class="h-full w-full bg-gradient-to-r from-green-500/20 via-blue-500/20 to-purple-500/20 backdrop-blur-sm"></div>
+      <div class="absolute inset-0 bg-neutral-800/70"></div>
+    </div>
+    
+    <div class="max-w-4xl mx-auto relative z-10">
+      <!-- Company Logo/Banner -->
+      <div class="mb-8">
+        <div class="inline-block p-6 bg-gradient-to-r from-green-500 to-blue-600 rounded-2xl shadow-xl">
+          <div class="text-4xl font-bold text-white flex items-center space-x-3">
+            <span class="text-5xl">⬢</span>
+            <span>Uvision</span>
+          </div>
+          <div class="text-green-100 text-sm mt-1">Technology Solutions</div>
+        </div>
+      </div>
+      
+      <h1 class="text-5xl font-bold mb-6 text-white">
+        Innovative Technology Solutions
+      </h1>
+      <p class="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+        We deliver cutting-edge software development, web applications, and digital transformation services that empower businesses to thrive in the digital age.
+      </p>
+      <div class="flex justify-center space-x-4">
+        <a href="#services" class="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
+          Our Services
+        </a>
+        <a href="#contact" class="border border-gray-400 hover:border-white text-white px-8 py-3 rounded-lg font-semibold transition-colors">
+          Get Started
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="py-16 bg-neutral-700 -mx-4 sm:-mx-8 px-4 sm:px-8">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-12 text-white">About Uvision</h2>
+      <div class="grid md:grid-cols-3 gap-8 text-center">
+        <div class="bg-neutral-800 p-6 rounded-lg">
+          <div class="text-4xl font-bold text-green-500 mb-2">5+</div>
+          <div class="text-white font-semibold">Years Experience</div>
+        </div>
+        <div class="bg-neutral-800 p-6 rounded-lg">
+          <div class="text-4xl font-bold text-green-500 mb-2">100+</div>
+          <div class="text-white font-semibold">Projects Completed</div>
+        </div>
+        <div class="bg-neutral-800 p-6 rounded-lg">
+          <div class="text-4xl font-bold text-green-500 mb-2">50+</div>
+          <div class="text-white font-semibold">Happy Clients</div>
+        </div>
+      </div>
+      <div class="mt-12 text-center">
+        <p class="text-gray-300 text-lg max-w-3xl mx-auto">
+          We are a team of passionate developers and designers committed to creating exceptional digital experiences. Our expertise spans web development, mobile applications, and enterprise solutions.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="py-16">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-12 text-white">Our Services</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-neutral-700 p-6 rounded-lg hover:bg-neutral-600 transition-colors">
+          <div class="text-green-500 text-2xl mb-4">🌐</div>
+          <h3 class="text-xl font-semibold text-white mb-3">Web Development</h3>
+          <p class="text-gray-300">Custom websites and web applications built with modern technologies and best practices.</p>
+        </div>
+        <div class="bg-neutral-700 p-6 rounded-lg hover:bg-neutral-600 transition-colors">
+          <div class="text-green-500 text-2xl mb-4">📱</div>
+          <h3 class="text-xl font-semibold text-white mb-3">Mobile Apps</h3>
+          <p class="text-gray-300">Native and cross-platform mobile applications for iOS and Android devices.</p>
+        </div>
+        <div class="bg-neutral-700 p-6 rounded-lg hover:bg-neutral-600 transition-colors">
+          <div class="text-green-500 text-2xl mb-4">☁️</div>
+          <h3 class="text-xl font-semibold text-white mb-3">Cloud Solutions</h3>
+          <p class="text-gray-300">Scalable cloud infrastructure and deployment solutions for modern applications.</p>
+        </div>
+        <div class="bg-neutral-700 p-6 rounded-lg hover:bg-neutral-600 transition-colors">
+          <div class="text-green-500 text-2xl mb-4">🎨</div>
+          <h3 class="text-xl font-semibold text-white mb-3">UI/UX Design</h3>
+          <p class="text-gray-300">User-centered design solutions that create engaging and intuitive experiences.</p>
+        </div>
+        <div class="bg-neutral-700 p-6 rounded-lg hover:bg-neutral-600 transition-colors">
+          <div class="text-green-500 text-2xl mb-4">🔧</div>
+          <h3 class="text-xl font-semibold text-white mb-3">Consulting</h3>
+          <p class="text-gray-300">Technical consulting and architecture planning for complex software projects.</p>
+        </div>
+        <div class="bg-neutral-700 p-6 rounded-lg hover:bg-neutral-600 transition-colors">
+          <div class="text-green-500 text-2xl mb-4">🚀</div>
+          <h3 class="text-xl font-semibold text-white mb-3">Digital Transformation</h3>
+          <p class="text-gray-300">Complete digital transformation solutions to modernize your business processes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="py-16 bg-neutral-700 -mx-4 sm:-mx-8 px-4 sm:px-8">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-12 text-white">Featured Projects</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="bg-neutral-800 rounded-lg overflow-hidden">
+          <div class="h-48 bg-gradient-to-br from-green-500 to-blue-600"></div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-white mb-2">E-Commerce Platform</h3>
+            <p class="text-gray-300 mb-4">A full-stack e-commerce solution with modern payment integration and inventory management.</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm">React</span>
+              <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm">Node.js</span>
+              <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm">MongoDB</span>
+            </div>
+          </div>
+        </div>
+        <div class="bg-neutral-800 rounded-lg overflow-hidden">
+          <div class="h-48 bg-gradient-to-br from-purple-500 to-pink-600"></div>
+          <div class="p-6">
+            <h3 class="text-xl font-semibold text-white mb-2">Healthcare Management System</h3>
+            <p class="text-gray-300 mb-4">Comprehensive healthcare management platform with patient records and appointment scheduling.</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm">Vue.js</span>
+              <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm">Python</span>
+              <span class="bg-green-500 text-white px-3 py-1 rounded-full text-sm">PostgreSQL</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Open Source Section -->
+  <section id="opensource" class="py-16">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-12 text-white">Open Source Contributions</h2>
+      <div class="text-center mb-8">
+        <p class="text-gray-300 text-lg max-w-2xl mx-auto">
+          We believe in giving back to the community. Check out our open source projects and contributions on GitHub.
+        </p>
+      </div>
+      
+      <!-- GitHub Banner -->
+      <div class="flex justify-center mb-12">
+        <a href="https://github.com/uvisionpk" target="_blank" class="inline-flex items-center space-x-4 bg-neutral-700 hover:bg-neutral-600 px-8 py-4 rounded-lg transition-colors group">
+          <div class="text-4xl">🐙</div>
+          <div>
+            <div class="text-white font-semibold text-lg group-hover:text-green-400">Follow us on GitHub</div>
+            <div class="text-gray-300 text-sm">@uvisionpk</div>
+          </div>
+          <div class="text-green-500 text-xl">→</div>
+        </a>
+      </div>
+
+      <!-- Open Source Projects Grid -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-neutral-700 p-6 rounded-lg hover:bg-neutral-600 transition-colors">
+          <div class="flex items-center mb-4">
+            <div class="text-green-500 text-2xl mr-3">📦</div>
+            <h3 class="text-lg font-semibold text-white">Astro Supabase Starter</h3>
+          </div>
+          <p class="text-gray-300 text-sm mb-4">Full-stack Astro application with Supabase integration for rapid development.</p>
+          <div class="flex items-center justify-between">
+            <div class="flex space-x-2">
+              <span class="bg-blue-500 text-white px-2 py-1 rounded text-xs">Astro</span>
+              <span class="bg-green-500 text-white px-2 py-1 rounded text-xs">Supabase</span>
+            </div>
+            <a href="https://github.com/uvisionpk/astro-supabase-starter" target="_blank" class="text-green-500 hover:text-green-400">
+              <div class="text-sm">View →</div>
+            </a>
+          </div>
+        </div>
+
+        <div class="bg-neutral-700 p-6 rounded-lg hover:bg-neutral-600 transition-colors">
+          <div class="flex items-center mb-4">
+            <div class="text-green-500 text-2xl mr-3">🛠️</div>
+            <h3 class="text-lg font-semibold text-white">Developer Tools</h3>
+          </div>
+          <p class="text-gray-300 text-sm mb-4">Collection of developer utilities and tools for enhanced productivity.</p>
+          <div class="flex items-center justify-between">
+            <div class="flex space-x-2">
+              <span class="bg-yellow-500 text-white px-2 py-1 rounded text-xs">JavaScript</span>
+              <span class="bg-purple-500 text-white px-2 py-1 rounded text-xs">Node.js</span>
+            </div>
+            <a href="https://github.com/uvisionpk/dev-tools" target="_blank" class="text-green-500 hover:text-green-400">
+              <div class="text-sm">View →</div>
+            </a>
+          </div>
+        </div>
+
+        <div class="bg-neutral-700 p-6 rounded-lg hover:bg-neutral-600 transition-colors">
+          <div class="flex items-center mb-4">
+            <div class="text-green-500 text-2xl mr-3">🎨</div>
+            <h3 class="text-lg font-semibold text-white">UI Components</h3>
+          </div>
+          <p class="text-gray-300 text-sm mb-4">Reusable React/Vue components library with modern design patterns.</p>
+          <div class="flex items-center justify-between">
+            <div class="flex space-x-2">
+              <span class="bg-cyan-500 text-white px-2 py-1 rounded text-xs">React</span>
+              <span class="bg-green-600 text-white px-2 py-1 rounded text-xs">Vue</span>
+            </div>
+            <a href="https://github.com/uvisionpk/ui-components" target="_blank" class="text-green-500 hover:text-green-400">
+              <div class="text-sm">View →</div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Open Source Stats -->
+      <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="text-center">
+          <div class="text-2xl font-bold text-green-500 mb-1">15+</div>
+          <div class="text-gray-300 text-sm">Public Repos</div>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl font-bold text-green-500 mb-1">250+</div>
+          <div class="text-gray-300 text-sm">Stars Earned</div>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl font-bold text-green-500 mb-1">50+</div>
+          <div class="text-gray-300 text-sm">Forks</div>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl font-bold text-green-500 mb-1">100+</div>
+          <div class="text-gray-300 text-sm">Contributors</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="py-16">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl font-bold text-center mb-12 text-white">Get In Touch</h2>
+      <div class="grid md:grid-cols-2 gap-12">
+        <div>
+          <h3 class="text-xl font-semibold text-white mb-6">Contact Information</h3>
+          <div class="space-y-4">
+            <div class="flex items-center">
+              <div class="text-green-500 text-xl mr-4">📧</div>
+              <div>
+                <div class="text-white font-semibold">Email</div>
+                <div class="text-gray-300">contact@uvision.pk</div>
+              </div>
+            </div>
+            <div class="flex items-center">
+              <div class="text-green-500 text-xl mr-4">📱</div>
+              <div>
+                <div class="text-white font-semibold">Phone</div>
+                <div class="text-gray-300">+92 300 1234567</div>
+              </div>
+            </div>
+            <div class="flex items-center">
+              <div class="text-green-500 text-xl mr-4">📍</div>
+              <div>
+                <div class="text-white font-semibold">Location</div>
+                <div class="text-gray-300">Lahore, Pakistan</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <form class="space-y-4">
+            <div>
+              <label for="name" class="block text-white font-semibold mb-2">Name</label>
+              <input type="text" id="name" class="w-full px-4 py-2 bg-neutral-700 border border-gray-600 rounded-lg text-white focus:border-green-500 focus:outline-none" required>
+            </div>
+            <div>
+              <label for="email" class="block text-white font-semibold mb-2">Email</label>
+              <input type="email" id="email" class="w-full px-4 py-2 bg-neutral-700 border border-gray-600 rounded-lg text-white focus:border-green-500 focus:outline-none" required>
+            </div>
+            <div>
+              <label for="message" class="block text-white font-semibold mb-2">Message</label>
+              <textarea id="message" rows="5" class="w-full px-4 py-2 bg-neutral-700 border border-gray-600 rounded-lg text-white focus:border-green-500 focus:outline-none" required></textarea>
+            </div>
+            <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-lg font-semibold transition-colors">
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
 </Layout>
